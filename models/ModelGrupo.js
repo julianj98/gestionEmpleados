@@ -1,4 +1,4 @@
-const client = require("../data/Conexion");
+const client = require("../data/ConexionDB");
 
 module.exports = {
   async insertar(descripcion, descripcionSecundaria, idGrupoTemplate) {

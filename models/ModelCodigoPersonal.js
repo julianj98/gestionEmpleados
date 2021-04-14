@@ -1,4 +1,4 @@
-const client = require("../data/Conexion");
+const client = require("../data/ConexionDB");
 client.connect();
 
 module.exports = {
@@ -18,15 +18,17 @@ module.exports = {
       });
   },
   async obtener() {
-    const resultado = await client
-      .query(`select * from codigo_personal`)
-      .then((response) => {
-        console.log(response.rows);
-        return response.rows;
-      })
-      .catch((err) => {
-        client.end();
-      });
+      try {
+        const resultado = await client.query(`select * from codigo_personal`);
+        return resultado;  
+      } catch (error) {
+        return ({
+          success: false,
+          mensaje: 'Error interno al realizar la peticion al servidor',
+          errors: error
+        })
+      }
+      
   },
   async obtenerPorId(id) {
     const resultado = await client.query(

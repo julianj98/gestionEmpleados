@@ -1,6 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
-const client = require("../data/Conexion");
+const client = require("../data/ConexionDB");
 
 // client.connect();
 // client
@@ -33,13 +33,9 @@ app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-//configurar rutas
-// app.use('/', (req, res) => {
-//     res.send("Home");
-// })
-
+//uso de las rutas
 app.use(require("../routes/index"));
-app.use("/codigo", require("../routes/codigo"));
+app.use("/codigo", require("../routes/codigoEmpleado_ruta"));
 
 app.listen(app.get("port"), () => {
   console.log(`Server on port ${app.get("port")}`);
