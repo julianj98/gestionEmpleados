@@ -2,28 +2,6 @@ const express = require("express");
 const morgan = require("morgan");
 const client = require("../data/ConexionDB");
 
-// client.connect();
-// client
-//   .query("SELECT * FROM codigo_personal")
-  //  .then((response) => {
-  //    console.log(response.rows);
-  //    client.end();
-  //  })
-  //  .catch((err) => {
-  //    client.end();
-  //  });
-
-// client
-//   .query("insert into codigo_personal(codigo, descripcion, habilitado) values ('G1', 'CODIGO UNICO', 1);")
-//   .then((response) => {
-//     console.log("registro insertado");
-//     client.end();
-//   })
-//   .catch((error) => {
-//     console.log(error);
-//     client.end();
-//   });
-
 //crear una app de express
 const app = express();
 
@@ -35,7 +13,7 @@ app.use(express.json());
 
 //uso de las rutas
 app.use(require("../routes/index"));
-app.use("/codigo", require("../routes/codigoEmpleado_ruta"));
+app.use("/personal/obtenerCodigosPersonal", require("../routes/codigoEmpleado_ruta"));
 
 app.listen(app.get("port"), () => {
   console.log(`Server on port ${app.get("port")}`);

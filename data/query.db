@@ -1,0 +1,112 @@
+#creacion de tablas
+create table codigo_personal(
+	id_codigo_personal SERIAL PRIMARY KEY,
+	codigo varchar(20) UNIQUE NOT NULL,
+	descripcion VARCHAR(50),
+	habilitado INTEGER
+);
+
+create table grupo_template(
+	id_grupo_template SERIAL PRIMARY KEY NOT NULL,
+	nombre VARCHAR(70) NOT NULL
+);	
+
+create table grupos(
+	id_grupo SERIAL PRIMARY KEY,
+	descripcion VARCHAR(60) NOT NULL,
+	descripcion_secundaria VARCHAR(60),
+	id_grupo_template integer NOT NULL,
+	FOREIGN KEY(id_grupo_template)REFERENCES grupo_template(id_grupo_template)
+	);
+
+create table empleados(
+	id_usuario SERIAL PRIMARY KEY,
+	nro_afiliado INTEGER NOT NULL,
+	apellido VARCHAR(50) NOT NULL,
+	nombre VARCHAR(50) NOT NULL,
+	sucursal INTEGER NOT NULL,
+	dcto_exp VARCHAR(30);
+	observacion VARCHAR(100),
+	horario_laboral_desde TIME,
+	horario_laboral_hasta TIME,
+	fecha_ingreso DATE NOT NULL,
+	fecha_salida DATE,
+	id_codigo_personal INTEGER,
+	id_grupo INTEGER,
+    FOREIGN KEY(id_codigo_personal) REFERENCES codigo_personal(id_codigo_personal),
+    FOREIGN KEY(id_grupo) REFERENCES grupos(id_grupo)
+);
+
+#insertar Registros en grupo template
+
+INSERT INTO grupo_template (nombre) values ('direccion de ingresos municipales');
+
+#insertar Registros en grupos
+INSERT INTO grupos (descripcion,descripcion_secundaria,id_grupo_template)
+	values ('fiscalizacion','',1); 
+
+INSERT INTO grupos (descripcion,descripcion_secundaria,id_grupo_template)
+	values ('Funcionarios','',1); 
+	
+INSERT INTO grupos (descripcion,descripcion_secundaria,id_grupo_template)
+	values ('Seccion Personal','',1); 
+
+INSERT INTO grupos (descripcion,descripcion_secundaria,id_grupo_template)
+	values ('Seccion Libre Deuda','',1); 
+	
+INSERT INTO grupos (descripcion,descripcion_secundaria,id_grupo_template)
+	values ('Departamento Auditoria','',1); 
+	
+INSERT INTO grupos (descripcion,descripcion_secundaria,id_grupo_template)
+	values ('Departamento Juridico','',1); 
+	
+INSERT INTO grupos (descripcion,descripcion_secundaria,id_grupo_template)
+	values ('Departamento Personal de catastro y edificacion','Oficina exencion C.I.S.I',1); 
+
+#insertar codigo personal
+INSERT INTO codigo_personal (codigo,descripcion,habilitado)
+	values ('B4','bloque b extension4',1); 
+
+INSERT INTO codigo_personal (codigo,descripcion,habilitado)
+	values ('G1','CODIGO G1',1); 
+	
+INSERT INTO codigo_personal (codigo,descripcion,habilitado)
+	values ('E1','CODIGO E1',1); 
+
+INSERT INTO codigo_personal (codigo,descripcion,habilitado)
+	values ('G2','CODIGO G1',0);
+
+INSERT INTO codigo_personal (codigo,descripcion,habilitado)
+	values ('D21','CODIGO D21',1);
+
+#insertar empleados
+
+INSERT INTO empleados(
+	 nro_afiliado, apellido, nombre, sucursal, dcto_exp, observacion, horario_laboral_desde, horario_laboral_hasta, 
+	fecha_ingreso, fecha_salida, id_codigo_personal, id_grupo)
+	VALUES (25561,'Contreras', 'Alvaro Eugenio', 1,1, 'subsecretario', '08:00', '13:00','25/02/2018','22/10/25', 1, 1);
+
+INSERT INTO empleados(
+	 nro_afiliado, apellido, nombre, sucursal, dcto_exp, observacion, horario_laboral_desde, horario_laboral_hasta, 
+	fecha_ingreso, fecha_salida, id_codigo_personal, id_grupo)
+	VALUES (17992,'Achavar', 'Antonio P.', 1,1, 'S/O', '07:00', '13:00','13/05/2017','22/10/24', 2, 4);
+	
+INSERT INTO empleados(
+	 nro_afiliado, apellido, nombre, sucursal, dcto_exp, observacion, horario_laboral_desde, horario_laboral_hasta, 
+	fecha_ingreso, fecha_salida, id_codigo_personal, id_grupo)
+	VALUES (17992,'Achavar', 'Antonio P.', 1,1, 'S/O', '07:00', '13:00','13/05/2017','22/10/24', 2, 4);
+
+INSERT INTO empleados(
+	 nro_afiliado, apellido, nombre, sucursal, dcto_exp, observacion, horario_laboral_desde, horario_laboral_hasta, 
+	fecha_ingreso, fecha_salida, id_codigo_personal, id_grupo)
+	VALUES (23062,'Campos', 'Ana Maria', 1,1, 'S/O', '08:00', '14:00','13/05/2017','22/10/24',Null, 6);
+	
+INSERT INTO empleados(
+	 nro_afiliado, apellido, nombre, sucursal, dcto_exp, observacion, horario_laboral_desde, horario_laboral_hasta, 
+	fecha_ingreso, fecha_salida, id_codigo_personal, id_grupo)
+	VALUES (21667,'Maidana', 'Susana', 2, 1255, 'DCTO 1255/SG', '07:00', '13:00','13/05/2019','22/10/26',1, 8);
+
+INSERT INTO empleados(
+	 nro_afiliado, apellido, nombre, sucursal, dcto_exp, observacion, horario_laboral_desde, horario_laboral_hasta, 
+	fecha_ingreso, fecha_salida, id_codigo_personal, id_grupo)
+		VALUES (2166741.6,'Burgos', 'Maurecia', 1, Null, 'Sin Instr Legal', '07:00', '13:00','30/09/2016','22/10/22',6, 7);
