@@ -1,15 +1,15 @@
-const client = require("../data/ConexionDB");
+const client = require('../data/ConexionDB');
 
 module.exports = {
   async insertar(nombre) {
     const resultado = await client.query(
-      "insert into grupo_template (nombre) VALUES ($1)",
+      'insert into grupo_template (nombre) VALUES ($1)',
       [nombre]
     );
     return resultado;
   },
   async obtener() {
-    const resultados = await client.query("select * from grupo_template");
+    const resultados = await client.query('select * from grupo_template');
     return resultados.rows;
   },
   async obtenerPorId(id) {

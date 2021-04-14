@@ -1,4 +1,4 @@
-const client = require("../data/ConexionDB");
+const client = require('../data/ConexionDB');
 
 module.exports = {
   async insertar(
@@ -38,7 +38,7 @@ module.exports = {
     return resultado;
   },
   async obtener() {
-    const resultado = await client.query("select * from empleados");
+    const resultado = await client.query('select * from empleados');
     return resultado.rows;
   },
   async obtenerPorId(id) {
@@ -96,7 +96,10 @@ module.exports = {
     return resultado;
   },
   async eliminar(id) {
-    const resultado = client.query(`delete from empleados where id_usuario = $1`, [id]);
+    const resultado = client.query(
+      `delete from empleados where id_usuario = $1`,
+      [id]
+    );
     return resultado;
   },
 };

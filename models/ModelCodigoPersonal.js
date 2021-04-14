@@ -1,4 +1,4 @@
-const client = require("../data/ConexionDB");
+const client = require('../data/ConexionDB');
 client.connect();
 
 module.exports = {
@@ -18,30 +18,30 @@ module.exports = {
       });
   },
   async obtenerListadoDeCodigos() {
-      try {
-        const resultado = await client.query(`select * from codigo_personal`);
-        return resultado;  
-      } catch (error) {
-        return ({
-          success: false,
-          mensaje: 'Error interno al realizar la peticion al servidor',
-          errors: error
-        })
-      }
+    try {
+      const resultado = await client.query(`select * from codigo_personal`);
+      return resultado;
+    } catch (error) {
+      return {
+        success: false,
+        mensaje: 'Error interno al realizar la peticion al servidor',
+        errors: error,
+      };
+    }
   },
   async obtenerCodigoEmpleadoPorId(id_codigoPersonal) {
     try {
-     const resultado = await client.query(
+      const resultado = await client.query(
         `select * from codigo_personal where id_codigo_personal = $1`,
         [id_codigoPersonal]
-     );
+      );
       return resultado;
     } catch (error) {
-      return({
+      return {
         success: false,
         mensaje: 'Error interno al realizar la peticion al servidor',
-        errors: error
-      })
+        errors: error,
+      };
     }
   },
   async actualizarCodigoEmpleado(codigo, descripcion, habilitado, id) {
@@ -56,13 +56,20 @@ module.exports = {
     );
     return resultado;
   },
-  async eliminarCodigoEmpleado(id) {
-    const resultado = await client.query(
-      `
-    delete from codigo_personal where id_codigo_personal = $1`,
-      [id]
-    );
-    return resultado;
+  async eliminarCodigoEmpleado(id_codigoPersonal) {
+    try {
+      const resultado = await client.query(
+        `delete from codigo_personal where id_codigo_personal=$1`,
+        [id_codigoPersonal]
+      );
+      return resultado;
+    } catch (error) {
+      return {
+        success: false,
+        mensaje: 'Error interno al realizar la peticion al servidor',
+        errors: error,
+      };
+    }
   },
 };
 
