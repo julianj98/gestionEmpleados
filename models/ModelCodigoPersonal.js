@@ -3,19 +3,23 @@ client.connect();
 
 module.exports = {
   async insertarCodigoEmpleado(codigo, descripcion, habilitado) {
-    const resultado = await client
-      .query(
+    try {
+      const resultado = await client.query(
         `insert into codigo_personal(codigo, descripcion, habilitado)
         values($1,$2,$3)`,
         [codigo, descripcion, habilitado]
-      )
-      .then((response) => {
-        console.log(response.rows);
-        client.end();
-      })
-      .catch((err) => {
-        client.end();
-      });
+      );
+      return {
+        resultado: resultado,
+        success: true,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        mensaje: 'Error interno al realizar la peticion al servidor',
+        errors: error,
+      };
+    }
   },
   async obtenerListadoDeCodigos() {
     try {
@@ -44,7 +48,12 @@ module.exports = {
       };
     }
   },
-  async actualizarCodigoEmpleado(codigo, descripcion, habilitado, id) {
+  async actualizarCodigoEmpleado(
+    codigo,
+    descripcion,
+    habilitado,
+    id_codigoPersonal
+  ) {
     try {
       const resultado = await client.query(
         `update codigo_personal
@@ -53,7 +62,7 @@ module.exports = {
       habilitado = $3
       where id_codigo_personal = $4
       `,
-        [codigo, descripcion, habilitado, id]
+        [codigo, descripcion, habilitado, id_codigoPersonal]
       );
       return {
         resultado: resultado,
@@ -83,5 +92,3 @@ module.exports = {
     }
   },
 };
-
-// ``

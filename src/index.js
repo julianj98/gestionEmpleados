@@ -11,9 +11,9 @@ app.use(morgan('dev'));
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
-//uso de las rutas
-app.use(require('../routes/index'));
-app.use('/personal/CodigosPersonal', require('../routes/codigoEmpleado_ruta'));
+// <- USO DE RUTAS ->
+// ruta codigoPersonal
+app.use('/personal/CodigoPersonal', require('../routes/codigoEmpleado_ruta'));
 
 app.listen(app.get('port'), () => {
   console.log(`Server on port ${app.get('port')}`);
