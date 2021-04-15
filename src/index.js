@@ -13,10 +13,7 @@ app.use(express.json());
 
 //uso de las rutas
 app.use(require('../routes/index'));
-app.use(
-  '/personal/obtenerCodigosPersonal',
-  require('../routes/codigoEmpleado_ruta')
-);
+app.use('/personal/CodigosPersonal', require('../routes/codigoEmpleado_ruta'));
 
 app.listen(app.get('port'), () => {
   console.log(`Server on port ${app.get('port')}`);

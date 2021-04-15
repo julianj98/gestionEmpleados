@@ -45,16 +45,27 @@ module.exports = {
     }
   },
   async actualizarCodigoEmpleado(codigo, descripcion, habilitado, id) {
-    const resultado = await client.query(
-      `update codigo_personal
-    set codigo = $1,
-    descripcion = $2,
-    habilitado = $3
-    where id_codigo_personal = $4
-    `,
-      [codigo, descripcion, habilitado, id]
-    );
-    return resultado;
+    try {
+      const resultado = await client.query(
+        `update codigo_personal
+      set codigo = $1,
+      descripcion = $2,
+      habilitado = $3
+      where id_codigo_personal = $4
+      `,
+        [codigo, descripcion, habilitado, id]
+      );
+      return {
+        resultado: resultado,
+        success: true,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        mensaje: 'Error interno al realizar la peticion al servidor',
+        errors: error,
+      };
+    }
   },
   async eliminarCodigoEmpleado(id_codigoPersonal) {
     try {
