@@ -104,3 +104,5 @@ router.put('/actualizarEmpleado/id=:id', async (req, res) => {
   }
 });
 module.exports = router;
+
+//FALTA ACTUALIZAR E INSERTAR UN EMPLEADO
