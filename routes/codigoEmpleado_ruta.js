@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const codigoModel = require('../models/ModelCodigoPersonal');
 
-router.get('/obtenerCodigos', async (req, res) => {
-  resultado = await codigoModel.obtenerListadoDeCodigos();
+router.get('/obtenerCodigosPersonal', async (req, res) => {
+  resultado = await codigoModel.obtenerListadoDeCodigosPersonal();
   resultado.success == false
     ? res.status(500).json({error: resultado.mensaje})
     : res.status(200).json({
@@ -14,8 +14,8 @@ router.get('/obtenerCodigos', async (req, res) => {
       });
 });
 
-router.get('/obtenerCodigoID/:id', async (req, res) => {
-  resultado = await codigoModel.obtenerCodigoEmpleadoPorId(req.params.id);
+router.get('/obtenerCodigoPersonalID/id=:id', async (req, res) => {
+  resultado = await codigoModel.obtenerCodigoPersonalPorId(req.params.id);
   resultado.success == false || resultado.rows.length == 0
     ? res.status(500).json({
         error: resultado.mensaje,
@@ -29,8 +29,8 @@ router.get('/obtenerCodigoID/:id', async (req, res) => {
       });
 });
 
-router.delete('/eliminar/:id', async (req, res) => {
-  resultado = await codigoModel.eliminarCodigoEmpleado(req.params.id);
+router.delete('/eliminarCodigoPersonal/id=:id', async (req, res) => {
+  resultado = await codigoModel.eliminarCodigoPersonal(req.params.id);
   resultado.success == false
     ? res.status(500).json({
         error: resultado.mensaje,
@@ -43,11 +43,11 @@ router.delete('/eliminar/:id', async (req, res) => {
       });
 });
 
-router.put('/actualizar/:id', async (req, res) => {
+router.put('/actualizarCodigoPersonal/id=:id', async (req, res) => {
   const id = req.params.id;
   const {codigo, descripcion, habilitado} = req.body;
   if (codigo && descripcion && habilitado && id) {
-    resultado = await codigoModel.actualizarCodigoEmpleado(
+    resultado = await codigoModel.actualizarCodigoPersonal(
       codigo,
       descripcion,
       habilitado,
@@ -71,10 +71,10 @@ router.put('/actualizar/:id', async (req, res) => {
   }
 });
 
-router.post('/insertar', async (req, res) => {
+router.post('/insertarCodigoPersonal', async (req, res) => {
   const {codigo, descripcion, habilitado} = req.body;
   if (codigo && descripcion && habilitado) {
-    resultado = await codigoModel.insertarCodigoEmpleado(
+    resultado = await codigoModel.insertarCodigoPersonal(
       codigo,
       descripcion,
       habilitado

@@ -1,8 +1,8 @@
 const client = require('../data/ConexionDB');
-client.connect();
+// client.connect();
 
 module.exports = {
-  async insertarCodigoEmpleado(codigo, descripcion, habilitado) {
+  async insertarCodigoPersonal(codigo, descripcion, habilitado) {
     try {
       const resultado = await client.query(
         `insert into codigo_personal(codigo, descripcion, habilitado)
@@ -21,7 +21,7 @@ module.exports = {
       };
     }
   },
-  async obtenerListadoDeCodigos() {
+  async obtenerListadoDeCodigosPersonal() {
     try {
       const resultado = await client.query(`select * from codigo_personal`);
       return resultado;
@@ -33,7 +33,7 @@ module.exports = {
       };
     }
   },
-  async obtenerCodigoEmpleadoPorId(id_codigoPersonal) {
+  async obtenerCodigoPersonalPorId(id_codigoPersonal) {
     try {
       const resultado = await client.query(
         `select * from codigo_personal where id_codigo_personal = $1`,
@@ -48,7 +48,7 @@ module.exports = {
       };
     }
   },
-  async actualizarCodigoEmpleado(
+  async actualizarCodigoPersonal(
     codigo,
     descripcion,
     habilitado,
@@ -76,7 +76,7 @@ module.exports = {
       };
     }
   },
-  async eliminarCodigoEmpleado(id_codigoPersonal) {
+  async eliminarCodigoPersonal(id_codigoPersonal) {
     try {
       const resultado = await client.query(
         `delete from codigo_personal where id_codigo_personal=$1`,
