@@ -4,15 +4,6 @@ const modelInformeDiario = require('../models/ModelInformeDiario');
 
 const router = express.Router();
 
-const crearInformeDiario = async (resultado) => {
-  const informe = new jsPDF();
-  informe.text(40, 20, 'Informe de empleados');
-  resultado.map((e) => {
-    informe.text(40, 20, `${e.id_usuario}`);
-  });
-  informe.save('InformeDiario.pdf');
-};
-
 router.get('/generarInforme', async (req, res) => {
   resultado = await modelInformeDiario.imprimirInformeDiario();
   if (resultado.success == false) {
@@ -21,7 +12,7 @@ router.get('/generarInforme', async (req, res) => {
       success: resultado.success,
     });
   } else {
-    crearInformeDiario(resultado.rows);
+    // crearInformeDiario(resultado.rows);
     console.log(resultado.rows);
     res.status(200).json({
       empleado: resultado.rows,
