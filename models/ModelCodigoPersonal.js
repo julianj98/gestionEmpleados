@@ -1,5 +1,5 @@
 const client = require('../data/ConexionDB');
-// client.connect();
+//client.connect();
 
 module.exports = {
   async insertarCodigoPersonal(codigo, descripcion, habilitado) {

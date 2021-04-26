@@ -3,8 +3,8 @@ const {Client} = require('pg');
 const connectionData = {
   user: 'postgres',
   host: 'localhost',
-  database: 'Empleados',
-  password: '1234',
+  database: 'prueba1',
+  password: '41060109',
   port: 5432,
 };
 

@@ -103,6 +103,59 @@ router.put('/actualizarEmpleado/id=:id', async (req, res) => {
     });
   }
 });
+
+router.post('/insertarEmpleado', async (req, res) => {
+  const {
+    nro_afiliado,
+    apellido,
+    nombre,
+    sucursal,
+    dcto_exp,
+    observacion,
+    horario_laboral_desde,
+    horario_laboral_hasta,
+    fecha_ingreso,
+    fecha_salida,
+    id_codigo_personal,
+    id_grupo,} = req.body;
+    if (
+      nro_afiliado &&
+      apellido &&
+      nombre &&
+      sucursal &&
+      fecha_ingreso
+    )  {
+    resultado = await empleadoModel.insertarEmpleado(
+      nro_afiliado,
+      apellido,
+      nombre,
+      sucursal,
+      dcto_exp,
+      observacion,
+      horario_laboral_desde,
+      horario_laboral_hasta,
+      fecha_ingreso,
+      fecha_salida,
+      id_codigo_personal,
+      id_grupo,
+    );
+    if (resultado.success == true) {
+      return res.status(200).json({
+        success: true,
+        mensaje: 'OK, insertado con exito',
+      });
+    }
+  } else {
+    return res.status(500).json({
+//      error: resultado.mensaje,
+      success: false,
+      mensaje: 'ERROR',
+    });
+  }
+});
+
+
+
 module.exports = router;
 
-//FALTA ACTUALIZAR E INSERTAR UN EMPLEADO
+// INSERTAR UN EMPLEADO
