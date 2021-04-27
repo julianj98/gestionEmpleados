@@ -36,6 +36,7 @@ app.use(express.json());
 app.use("/personal/CodigoPersonal", require("../routes/codigoEmpleado_ruta"));
 app.use("/empleado", require("../routes/empleado_ruta"));
 app.use("/informeDiario", require("../routes/informeDiario_ruta"));
+app.use("/grupo", require("../routes/grupo_ruta"));
 
 app.listen(app.get("port"), () => {
   console.log(`Server on port ${app.get("port")}`);
@@ -50,11 +51,18 @@ app.listen(app.get("port"), () => {
  *   description: CRUD de los codigos del personal de DIM
  */
 
-/*
+/** 
  * @swagger
  *  tags:
- *   name: Empleados.
+ *   name: Empleados
  *   description: CRUD de los empleados
+ */
+
+/** 
+ * @swagger
+ *  tags:
+ *   name: Grupos
+ *   description: CRUD de los grupos
  */
 
 /**
@@ -354,7 +362,7 @@ app.listen(app.get("port"), () => {
  * @swagger
  *  /empleado/insertarEmpleado:
  *  post:
- *    summary: Registrar un nuevo codigo de personal
+ *    summary: Registrar un nuevo empleado
  *    tags: [Empleados]
  *    parameters:
  *     - in: body
@@ -430,6 +438,133 @@ app.listen(app.get("port"), () => {
  *      application/json:
  *       schema:
  *          $ref: '#/definitions/Empleados'
+ */
+
+
+
+// GRUPOS //
+
+/**
+ * @swagger
+ *  /grupo/obtenerGrupos:
+ *  get:
+ *    summary: Se reciben todos los grupos
+ *    description: se reciben todos grupos
+ *    tags: [Grupos]
+ *    responses:
+ *      '200':
+ *        description: Todo Ok
+ *      '500':
+ *        description: Error interno al realizar la peticion al servidor
+ *    items:
+ *       $ref: '#/definitions/Grupos'
+ */
+
+
+/**
+ * @swagger
+ *  /grupo/obtenerGrupoPorID/id={id_grupo}:
+ *  get:
+ *    summary: Permite obtener un grupo
+ *    description: se recibe un grupo
+ *    tags: [Grupos]
+ *    parameters:
+ *    - in: path
+ *      name: id_grupo
+ *      schema:
+ *       type: integer
+ *      required: true
+ *      example: 2
+ *    responses:
+ *      '200':
+ *        description: Todo Ok
+ *      '500':
+ *        description: Error interno al realizar la peticion al servidor
+ */
+
+
+
+/**
+ * @swagger
+ *  /grupo/insertarGrupo:
+ *  post:
+ *    summary: Registrar un nuevo grupo
+ *    tags: [Grupos]
+ *    parameters:
+ *     - in: body
+ *       name: id_grupo
+ *       required: true
+ *       description: nuevo Grupo
+ *       schema:
+ *             $ref: '#/definitions/grupos'
+ *    requestBody:
+ *     content:
+ *      application/json:
+ *    responses:
+ *         200:
+ *          description: Todo Ok
+ *         500:
+ *          description: Error interno al realizar la peticion al servidor
+ */
+
+/**
+ * @swagger
+ *  /grupo/eliminarGrupo/id={id_grupo}:
+ *  delete:
+ *   summary: Eliminar un grupo
+ *   tags: [Grupos]
+ *   description: elimnar un grupo
+ *   parameters:
+ *    - in: path
+ *      name: id_grupo
+ *      schema:
+ *       type: integer
+ *      required: true
+ *      description:
+ *      example: 2
+ *   responses:
+ *    200:
+ *      description: Todo Ok
+ *    500:
+ *      description: Error interno al realizar la peticion al servidor
+ */
+
+/**
+ * @swagger
+ *  /grupo/actualizarGrupo/id={id_grupo}:
+ *  put:
+ *   summary: Actualizar datos de un grupo
+ *   tags: [Grupos]
+ *   description: Actualizar datos de un grupo
+ *   consumes:
+ *    - application/json
+ *   produces:
+ *    - application/json
+ *   parameters:
+ *    - in: path
+ *      name: id_grupo
+ *      schema:
+ *       type: integer
+ *      required: true
+ *      example: 1
+ *    - in: body
+ *      name: descripcion
+ *      required: true
+ *      description: descripcion del empleado
+ *      schema:
+ *       $ref: '#/definitions/grupos'
+ *   requestBody:
+ *    content:
+ *     application/json:
+ *      schema:
+ *       $ref: '#/definitions/grupos'
+ *   responses:
+ *    200:
+ *     description: success
+ *     content:
+ *      application/json:
+ *       schema:
+ *          $ref: '#/definitions/grupos'
  */
 
 
