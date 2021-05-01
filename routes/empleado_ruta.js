@@ -155,7 +155,6 @@ router.post('/insertarEmpleado', async (req, res) => {
 });
 
 
-
 module.exports = router;
 
 // INSERTAR UN EMPLEADO

@@ -37,6 +37,7 @@ app.use("/personal/CodigoPersonal", require("../routes/codigoEmpleado_ruta"));
 app.use("/empleado", require("../routes/empleado_ruta"));
 app.use("/informeDiario", require("../routes/informeDiario_ruta"));
 app.use("/grupo", require("../routes/grupo_ruta"));
+app.use("/grupoTemplate", require("../routes/grupo_template_ruta"));
 
 app.listen(app.get("port"), () => {
   console.log(`Server on port ${app.get("port")}`);
@@ -51,18 +52,25 @@ app.listen(app.get("port"), () => {
  *   description: CRUD de los codigos del personal de DIM
  */
 
-/** 
+/**
  * @swagger
  *  tags:
  *   name: Empleados
  *   description: CRUD de los empleados
  */
 
-/** 
+/**
  * @swagger
  *  tags:
  *   name: Grupos
  *   description: CRUD de los grupos
+ */
+
+/**
+ * @swagger
+ *  tags:
+ *   name: Grupo Template
+ *   description: CRUD de los grupos Template
  */
 
 /**
@@ -192,8 +200,8 @@ app.listen(app.get("port"), () => {
  *          description: nombre del grupo template
  *          example: Direccion de Ingresos Municipales
  */
-  
- // CODIGO DEL PERSONAL //
+
+// CODIGO DEL PERSONAL //
 
 /**
  * @swagger
@@ -334,7 +342,6 @@ app.listen(app.get("port"), () => {
  *       $ref: '#/definitions/Empleados'
  */
 
-
 /**
  * @swagger
  *  /empleado/obtenerEmpleadoPorID/id={id_usuario}:
@@ -355,8 +362,6 @@ app.listen(app.get("port"), () => {
  *      '500':
  *        description: Error interno al realizar la peticion al servidor
  */
-
-
 
 /**
  * @swagger
@@ -440,8 +445,6 @@ app.listen(app.get("port"), () => {
  *          $ref: '#/definitions/Empleados'
  */
 
-
-
 // GRUPOS //
 
 /**
@@ -459,7 +462,6 @@ app.listen(app.get("port"), () => {
  *    items:
  *       $ref: '#/definitions/Grupos'
  */
-
 
 /**
  * @swagger
@@ -481,8 +483,6 @@ app.listen(app.get("port"), () => {
  *      '500':
  *        description: Error interno al realizar la peticion al servidor
  */
-
-
 
 /**
  * @swagger
@@ -567,4 +567,128 @@ app.listen(app.get("port"), () => {
  *          $ref: '#/definitions/grupos'
  */
 
+//GRUPOS TEMPLATE//
 
+/**
+ * @swagger
+ *  /grupoTemplate/obtenerGruposTemplate:
+ *  get:
+ *    summary: Se reciben todos los grupos template
+ *    description: se reciben todos grupos template
+ *    tags: [Grupo Template]
+ *    responses:
+ *      '200':
+ *        description: Todo Ok
+ *      '500':
+ *        description: Error interno al realizar la peticion al servidor
+ *    items:
+ *       $ref: '#/definitions/grupo_template'
+ */
+
+
+/**
+ * @swagger
+ *  /grupoTemplate/obtenerGrupoTemplatePorID/id={id_grupo_template}:
+ *  get:
+ *    summary: Permite obtener un grupo template
+ *    description: se recibe un grupo template
+ *    tags: [Grupo Template]
+ *    parameters:
+ *    - in: path
+ *      name: id_grupo_template
+ *      schema:
+ *       type: integer
+ *      required: true
+ *      example: 2
+ *    responses:
+ *      '200':
+ *        description: Todo Ok
+ *      '500':
+ *        description: Error interno al realizar la peticion al servidor
+ */
+
+
+/**
+ * @swagger
+ *  /grupoTemplate/insertarGrupoTemplate:
+ *  post:
+ *    summary: Registrar un nuevo grupo Template
+ *    tags: [Grupo Template]
+ *    parameters:
+ *     - in: body
+ *       name: id_grupo_template
+ *       required: true
+ *       description: nuevo Grupo
+ *       schema:
+ *             $ref: '#/definitions/grupo_template'
+ *    requestBody:
+ *     content:
+ *      application/json:
+ *    responses:
+ *         200:
+ *          description: Todo Ok
+ *         500:
+ *          description: Error interno al realizar la peticion al servidor
+ */
+
+
+/**
+ * @swagger
+ *  /grupoTemplate/eliminarGrupoTemplate/id={id_grupo_template}:
+ *  delete:
+ *   summary: Eliminar un grupo Template
+ *   tags: [Grupo Template]
+ *   description: elimnar un grupo Template
+ *   parameters:
+ *    - in: path
+ *      name: id_grupo_template
+ *      schema:
+ *       type: integer
+ *      required: true
+ *      description:
+ *      example: 2
+ *   responses:
+ *    200:
+ *      description: Todo Ok
+ *    500:
+ *      description: Error interno al realizar la peticion al servidor
+ */
+
+
+/**
+ * @swagger
+ *  /grupoTemplate/actualizarGrupoTemplate/id={id_grupo_template}:
+ *  put:
+ *   summary: Actualizar datos de un grupo template
+ *   tags: [Grupo Template] 
+ *   description: Actualizar datos de un grupo template
+ *   consumes:
+ *    - application/json
+ *   produces:
+ *    - application/json
+ *   parameters:
+ *    - in: path
+ *      name: id_grupo_template
+ *      schema:
+ *       type: integer
+ *      required: true
+ *      example: 1
+ *    - in: body
+ *      name: descripcion
+ *      required: true
+ *      description: descripcion del empleado
+ *      schema:
+ *       $ref: '#/definitions/grupo_template'
+ *   requestBody:
+ *    content:
+ *     application/json:
+ *      schema:
+ *       $ref: '#/definitions/grupos_template'
+ *   responses:
+ *    200:
+ *     description: success
+ *     content:
+ *      application/json:
+ *       schema:
+ *          $ref: '#/definitions/grupo_template'
+ */
